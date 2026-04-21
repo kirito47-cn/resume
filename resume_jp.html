@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>職務経歴書</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'MS Mincho', 'Yu Mincho', 'Hiragino Mincho ProN', 'MS 明朝', serif;
+    font-size: 10.5pt;
+    color: #111;
+    background: #e8e8e8;
+    line-height: 1.7;
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 16px auto;
+    background: #fff;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+    padding: 18mm 18mm 14mm 18mm;
+  }
+
+  /* ── Document title ── */
+  .doc-title {
+    text-align: center;
+    font-size: 18pt;
+    font-weight: bold;
+    letter-spacing: 8px;
+    border-bottom: 2.5px solid #111;
+    padding-bottom: 6px;
+    margin-bottom: 4px;
+  }
+  .doc-date {
+    text-align: right;
+    font-size: 9pt;
+    color: #444;
+    margin-bottom: 14px;
+  }
+
+  /* ── Basic info table ── */
+  .info-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 18px;
+    font-size: 10pt;
+  }
+  .info-table td {
+    border: 1px solid #999;
+    padding: 5px 8px;
+    vertical-align: middle;
+  }
+  .info-table .label {
+    background: #f0f0f0;
+    font-weight: bold;
+    width: 72px;
+    text-align: center;
+    font-size: 9.5pt;
+  }
+  .info-table .value { width: 160px; }
+  .info-table .photo-cell {
+    border: 1px solid #999;
+    width: 90px;
+    height: 110px;
+    text-align: center;
+    vertical-align: middle;
+    color: #888;
+    font-size: 9pt;
+    font-family: 'Meiryo', 'MS Gothic', sans-serif;
+    background: #fafafa;
+  }
+
+  /* ── Section heading ── */
+  .section { margin-bottom: 20px; }
+  .section-title {
+    font-size: 11.5pt;
+    font-weight: bold;
+    background: #1a3a5c;
+    color: #fff;
+    padding: 4px 10px;
+    margin-bottom: 8px;
+    letter-spacing: 2px;
+  }
+
+  /* ── Summary box ── */
+  .summary-box {
+    border: 1px solid #bbb;
+    padding: 10px 12px;
+    font-size: 10pt;
+    line-height: 1.9;
+    background: #fafafa;
+  }
+
+  /* ── Skills table ── */
+  .skills-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9.5pt;
+  }
+  .skills-table th {
+    background: #dde6f0;
+    border: 1px solid #aaa;
+    padding: 4px 8px;
+    text-align: center;
+    font-weight: bold;
+    white-space: nowrap;
+  }
+  .skills-table td {
+    border: 1px solid #aaa;
+    padding: 4px 8px;
+    vertical-align: top;
+  }
+  .skills-table .cat { background: #f5f5f5; font-weight: bold; text-align: center; width: 90px; }
+  .tag {
+    display: inline-block;
+    background: #e8eef5;
+    border: 1px solid #c0cfe0;
+    border-radius: 2px;
+    padding: 1px 6px;
+    margin: 1px 2px;
+    font-size: 9pt;
+    font-family: 'Meiryo', 'MS Gothic', sans-serif;
+  }
+  .tag.strong { background: #1a3a5c; color: #fff; border-color: #1a3a5c; }
+
+  /* ── Project table ── */
+  .proj-block { margin-bottom: 16px; border: 1px solid #aaa; }
+  .proj-title-row {
+    background: #1a3a5c;
+    color: #fff;
+    padding: 5px 10px;
+    font-weight: bold;
+    font-size: 10.5pt;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .proj-period { font-size: 9pt; opacity: 0.85; font-weight: normal; font-family: 'Meiryo', sans-serif; }
+  .proj-meta {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9.5pt;
+  }
+  .proj-meta td { border: 1px solid #ccc; padding: 4px 8px; vertical-align: top; }
+  .proj-meta .mlabel { background: #eef2f7; font-weight: bold; width: 80px; text-align: center; white-space: nowrap; }
+  .proj-meta ul { padding-left: 16px; }
+  .proj-meta li { padding: 1px 0; line-height: 1.65; }
+
+  /* ── Self PR ── */
+  .pr-box {
+    border: 1px solid #bbb;
+    padding: 10px 12px;
+    font-size: 10pt;
+    line-height: 1.9;
+  }
+
+  /* ── Page break ── */
+  .page-break { page-break-before: always; }
+
+  @media print {
+    body { background: #fff; }
+    .page { margin: 0; box-shadow: none; width: 100%; padding: 14mm 16mm 12mm 16mm; }
+    @page { margin: 0; size: A4; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ══ TITLE ══ -->
+  <div class="doc-title">職 務 経 歴 書</div>
+  <div class="doc-date">作成日：20XX年XX月XX日現在</div>
+
+  <!-- ══ BASIC INFO ══ -->
+  <table class="info-table">
+    <tr>
+      <td class="label">氏名</td>
+      <td class="value" style="font-size:13pt;font-weight:bold;letter-spacing:4px;">　　　　　　</td>
+      <td class="label">生年月日</td>
+      <td class="value">19XX年XX月XX日生（XX歳）</td>
+      <td rowspan="4" class="photo-cell">写真貼付<br>（縦4cm×横3cm）</td>
+    </tr>
+    <tr>
+      <td class="label">フリガナ</td>
+      <td class="value" style="font-size:9pt;color:#666;letter-spacing:2px;"></td>
+      <td class="label">性別</td>
+      <td class="value">男性 / 女性</td>
+    </tr>
+    <tr>
+      <td class="label">住所</td>
+      <td colspan="3">〒XXX-XXXX　○○県○○市○○町X-X-X</td>
+    </tr>
+    <tr>
+      <td class="label">連絡先</td>
+      <td>090-XXXX-XXXX</td>
+      <td class="label">メール</td>
+      <td>yourname@email.com</td>
+    </tr>
+  </table>
+
+  <!-- ══ SUMMARY ══ -->
+  <div class="section">
+    <div class="section-title">■ 職務要約</div>
+    <div class="summary-box">
+      フルスタックエンジニアとして5年以上の開発経験を持ちます。
+      主にMicrosoftエコシステム向けのWebアプリケーション（MSN Weather、Microsoft Rewards、Bing検索関連サービス）の開発に携わり、
+      フロントエンド（React 18 / Vue 3）からバックエンド（NestJS / PostgreSQL / Redis）まで一貫した設計・実装を担当してまいりました。<br>
+      近年はAzure OpenAI / OpenAI APIを活用したAIコンテンツ生成パイプラインの構築や、
+      大規模NestJSマイクロサービスアーキテクチャの設計・導入にも注力しており、
+      AI駆動の機能開発から本番リリース・監視運用まで幅広く対応できます。<br>
+      多国籍チームとの英語での業務経験があり、グローバルプロダクト開発における国際化（i18n）・多市場対応の知見も豊富です。
+    </div>
+  </div>
+
+  <!-- ══ SKILLS ══ -->
+  <div class="section">
+    <div class="section-title">■ 保有スキル</div>
+    <table class="skills-table">
+      <tr>
+        <th style="width:90px">カテゴリ</th>
+        <th>技術・ツール</th>
+        <th style="width:70px">経験年数</th>
+        <th style="width:70px">習熟度</th>
+      </tr>
+      <tr>
+        <td class="cat">フロントエンド</td>
+        <td>
+          <span class="tag strong">React 18</span>
+          <span class="tag strong">Vue 3</span>
+          <span class="tag strong">TypeScript</span>
+          <span class="tag">Zustand</span>
+          <span class="tag">Vue Router</span>
+          <span class="tag">Webpack 5</span>
+          <span class="tag">Vite</span>
+          <span class="tag">Sass / Less</span>
+          <span class="tag">i18n</span>
+        </td>
+        <td style="text-align:center">4〜5年</td>
+        <td style="text-align:center">★★★★★</td>
+      </tr>
+      <tr>
+        <td class="cat">バックエンド</td>
+        <td>
+          <span class="tag strong">NestJS</span>
+          <span class="tag strong">Prisma ORM</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">Redis</span>
+          <span class="tag">JWT / OAuth2</span>
+          <span class="tag">REST API</span>
+          <span class="tag">Node.js</span>
+        </td>
+        <td style="text-align:center">3〜4年</td>
+        <td style="text-align:center">★★★★☆</td>
+      </tr>
+      <tr>
+        <td class="cat">AI / クラウド</td>
+        <td>
+          <span class="tag strong">Azure OpenAI</span>
+          <span class="tag strong">OpenAI API</span>
+          <span class="tag">Prompt Engineering</span>
+          <span class="tag">Azure Key Vault</span>
+          <span class="tag">Application Insights</span>
+          <span class="tag">Azure Pipelines</span>
+        </td>
+        <td style="text-align:center">2〜3年</td>
+        <td style="text-align:center">★★★★☆</td>
+      </tr>
+      <tr>
+        <td class="cat">開発基盤</td>
+        <td>
+          <span class="tag">Docker</span>
+          <span class="tag">Playwright (E2E)</span>
+          <span class="tag">Jest / Vitest</span>
+          <span class="tag">ESLint / Prettier</span>
+          <span class="tag">Git / GitHub</span>
+          <span class="tag">Monorepo</span>
+        </td>
+        <td style="text-align:center">4〜5年</td>
+        <td style="text-align:center">★★★★☆</td>
+      </tr>
+      <tr>
+        <td class="cat">言語</td>
+        <td>中国語（母国語）　／　英語（業務使用可・Reading/Writing 上級）</td>
+        <td style="text-align:center">—</td>
+        <td style="text-align:center">—</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- ══ WORK HISTORY ══ -->
+  <div class="section">
+    <div class="section-title">■ 職務経歴</div>
+
+    <table style="width:100%;border-collapse:collapse;margin-bottom:12px;font-size:10pt">
+      <tr>
+        <td style="border:1px solid #aaa;background:#eef2f7;font-weight:bold;width:80px;text-align:center;padding:5px">在籍期間</td>
+        <td style="border:1px solid #aaa;padding:5px 10px">20XX年XX月 〜 20XX年XX月（在籍X年Xヶ月）</td>
+      </tr>
+      <tr>
+        <td style="border:1px solid #aaa;background:#eef2f7;font-weight:bold;text-align:center;padding:5px">会社名</td>
+        <td style="border:1px solid #aaa;padding:5px 10px">○○株式会社（Microsoft エコシステム向けプロダクト開発）</td>
+      </tr>
+      <tr>
+        <td style="border:1px solid #aaa;background:#eef2f7;font-weight:bold;text-align:center;padding:5px">雇用形態</td>
+        <td style="border:1px solid #aaa;padding:5px 10px">正社員　／　職位：シニアエンジニア</td>
+      </tr>
+      <tr>
+        <td style="border:1px solid #aaa;background:#eef2f7;font-weight:bold;text-align:center;padding:5px">事業内容</td>
+        <td style="border:1px solid #aaa;padding:5px 10px">Microsoft向けWebアプリケーション・ミニアプリの受託開発、AI機能の組み込み開発</td>
+      </tr>
+    </table>
+
+    <!-- Project 1 -->
+    <div class="proj-block">
+      <div class="proj-title-row">
+        <span>【PJ①】Sapphire Trending Queries — AI検索ワード生成・レコメンドプラットフォーム</span>
+        <span class="proj-period">20XX.XX 〜 20XX.XX</span>
+      </div>
+      <table class="proj-meta">
+        <tr>
+          <td class="mlabel">概要</td>
+          <td colspan="3">Bing検索向けのインテリジェントコンテンツ推薦システム。AI大規模言語モデルで高品質な検索ワードを自動生成し、ユーザーランク別に差分配信する。</td>
+        </tr>
+        <tr>
+          <td class="mlabel">チーム規模</td>
+          <td>エンジニアX名</td>
+          <td class="mlabel">担当工程</td>
+          <td>要件定義 / 設計 / 実装 / テスト / リリース</td>
+        </tr>
+        <tr>
+          <td class="mlabel">使用技術</td>
+          <td colspan="3">NestJS · TypeScript · OpenAI API · Prisma · PostgreSQL · Redis · Docker · Monorepo</td>
+        </tr>
+        <tr>
+          <td class="mlabel">担当業務<br>・成果</td>
+          <td colspan="3">
+            <ul>
+              <li>NestJS Monorepoマイクロサービス設計：server / admin / ai-generating / import / integrity の5サービスを独立設計・デプロイ</li>
+              <li>OpenAI APIを活用したAIコンテンツ生成パイプライン（PromptBuilder + ScoreService）を構築し、品質フィルタリングにより人的レビューコストを大幅削減</li>
+              <li>4段階ユーザー分層（LEVEL_0〜4）ランキング体系を実装。JSON設定のみでパーソナライズ戦略をコード変更なしに調整可能な仕組みを実現</li>
+              <li>Flight A/Bテストフレームワークを構築し、新レコメンドアルゴリズムのカナリアリリースとデータドリブンな改善サイクルを確立</li>
+              <li>Trending / High-SBS / High-RPM / Special Eventなど複数コンテンツソースの集約レイヤーと、CSVバッチインポートツールを開発</li>
+              <li>データ整合性検証サービス（integrity app）により、DB一貫性の自動チェック体制を整備</li>
+            </ul>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Project 2 -->
+    <div class="proj-block">
+      <div class="proj-title-row">
+        <span>【PJ②】Sapphire Parrot — エンタープライズ向けAIドキュメント解析プラットフォーム</span>
+        <span class="proj-period">20XX.XX 〜 20XX.XX</span>
+      </div>
+      <table class="proj-meta">
+        <tr>
+          <td class="mlabel">概要</td>
+          <td colspan="3">マルチテナント型AIドキュメント処理SaaS。ユーザーがドキュメントをアップロードし、AIとのリアルタイム対話形式で解析・QAを行う。複数学校・機関に対応。</td>
+        </tr>
+        <tr>
+          <td class="mlabel">チーム規模</td>
+          <td>エンジニアX名</td>
+          <td class="mlabel">担当工程</td>
+          <td>設計 / 実装 / セキュリティ対応 / テスト</td>
+        </tr>
+        <tr>
+          <td class="mlabel">使用技術</td>
+          <td colspan="3">NestJS · Azure OpenAI · Prisma · PostgreSQL · Redis · JWT · Passport · Docker · Application Insights</td>
+        </tr>
+        <tr>
+          <td class="mlabel">担当業務<br>・成果</td>
+          <td colspan="3">
+            <ul>
+              <li>Azure OpenAI Streaming APIを実装し、タイプライター効果のリアルタイム応答を実現（非ストリームモードとの兼用設計）</li>
+              <li>テナント別Promptバリエーション管理システムを設計。1つのコードベースで複数機関・言語のカスタム対応を可能にしたマルチテナント構成を実現</li>
+              <li>JWT認証 × CSRFトークンガード × Helmetセキュリティヘッダによる多層防御を実装。POST/PUT/DELETE全エンドポイントの保護を徹底</li>
+              <li>Redisベースのキャッシュ + Throttle Guardによるレート制限を導入し、レスポンス速度とAPI乱用防止を両立</li>
+              <li>Azure Key Vault（シークレット管理）+ Application Insights（全監視・アラート）を統合し、エンタープライズ品質の運用基盤を構築</li>
+              <li>Microsoft / Google OAuthによるSSO認証をOpenID Clientで実装</li>
+            </ul>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+  </div>
+</div><!-- /page 1 -->
+
+<!-- ══ PAGE 2 ══ -->
+<div class="page page-break">
+
+  <!-- Project 3 -->
+  <div class="section">
+    <div class="section-title">■ 職務経歴（続き）</div>
+
+    <div class="proj-block">
+      <div class="proj-title-row">
+        <span>【PJ③】Microsoft Rewards — ポイント報酬システムフロントエンド</span>
+        <span class="proj-period">20XX.XX 〜 20XX.XX</span>
+      </div>
+      <table class="proj-meta">
+        <tr>
+          <td class="mlabel">概要</td>
+          <td colspan="3">Microsoft Rewards積分体系のWebフロントエンド。ポイント獲得・日次タスク・ギフトカード交換・注文管理などのコアユーザーフローを担当。グローバル多市場向け。</td>
+        </tr>
+        <tr>
+          <td class="mlabel">チーム規模</td>
+          <td>エンジニアX名</td>
+          <td class="mlabel">担当工程</td>
+          <td>機能設計 / フロントエンド実装 / テスト</td>
+        </tr>
+        <tr>
+          <td class="mlabel">使用技術</td>
+          <td colspan="3">Vue 3 · TypeScript · Vite · Vue Router · Vue I18n · jsencrypt · TOTP · Less · Vitest</td>
+        </tr>
+        <tr>
+          <td class="mlabel">担当業務<br>・成果</td>
+          <td colspan="3">
+            <ul>
+              <li>多段階アカウント認証 + 自動CAPTCHA突破モジュール（CaptchaAutoVerify）を独立開発。Sapphire / Rewards 2系統のAPIを抽象化し統一インターフェースを提供</li>
+              <li>RewardsApiManagerによる統一リクエストレイヤーを構築。Flight Headers・キャッシュTTL・エラーリトライを集約し、15以上の業務APIモジュールを管理</li>
+              <li>RSA暗号化（jsencrypt）+ TOTPワンタイムトークンによる機密操作の暗号化送信を実装し、ギフトカード交換等の高額操作のセキュリティを確保</li>
+              <li>DailySetTask / InstallToEarn / SearchDoubleなどの多種タスクパネルコンポーネントを開発し、ポイント進捗のリアルタイム表示を実現</li>
+              <li>28,000行超の電話区番データを含む完全なグローバルi18n対応（Vue I18n）を実装し、多言語・多市場運営をサポート</li>
+            </ul>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Project 4 -->
+    <div class="proj-block">
+      <div class="proj-title-row">
+        <span>【PJ④】MSN Weather V3 — 気象情報ミニアプリ</span>
+        <span class="proj-period">20XX.XX 〜 20XX.XX</span>
+      </div>
+      <table class="proj-meta">
+        <tr>
+          <td class="mlabel">概要</td>
+          <td colspan="3">Sapphireスーパーアプリに組み込まれたMSN天気ミニアプリ。リアルタイム天気・10日間予報・台風追跡・AQI情報を提供。70以上の市場・言語をサポート。</td>
+        </tr>
+        <tr>
+          <td class="mlabel">チーム規模</td>
+          <td>エンジニアX名</td>
+          <td class="mlabel">担当工程</td>
+          <td>機能設計 / 実装 / パフォーマンス最適化 / E2Eテスト</td>
+        </tr>
+        <tr>
+          <td class="mlabel">使用技術</td>
+          <td colspan="3">Vue 3 · TypeScript · Vite · Vue I18n · Swiper · Playwright · DOMPurify · 独自気象チャートライブラリ</td>
+        </tr>
+        <tr>
+          <td class="mlabel">担当業務<br>・成果</td>
+          <td colspan="3">
+            <ul>
+              <li>Falcon API / MSN Weather API / Bing Placesの3系統データソースを集約する統一データ変換レイヤーとOfflineKeys離線キャッシュ体系を設計</li>
+              <li>分単位降水予報をリアルタイム描画するNowcastingモジュールを開発（自社気象チャートライブラリ統合）</li>
+              <li>台風追跡機能（経路図・詳細ページ・リアルタイムアラート）を実装</li>
+              <li>気象状態・現地時刻に連動した背景スキン自動切換えシステムを構築（晴/曇/夜間など複数テーマ）</li>
+              <li>タイムアウト10秒 + 指数バックオフリトライ + ネットワーク状態検知の統一リクエストラッパーを実装し、低速回線環境での可用性を向上</li>
+              <li>isomorphic-dompurifyによるXSS対策を実施し、Playwright E2Eでコアユーザーパスを自動検証</li>
+            </ul>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Project 5 -->
+    <div class="proj-block">
+      <div class="proj-title-row">
+        <span>【PJ⑤】Sapphire Money — 金融株式トラッキングミニアプリ</span>
+        <span class="proj-period">20XX.XX 〜 20XX.XX</span>
+      </div>
+      <table class="proj-meta">
+        <tr>
+          <td class="mlabel">概要</td>
+          <td colspan="3">Sapphireスーパーアプリ内の金融情報ミニアプリ。ウォッチリスト管理・Kラインチャート・相場ニュース・為替換算をiOS/Android両対応で提供。</td>
+        </tr>
+        <tr>
+          <td class="mlabel">チーム規模</td>
+          <td>エンジニアX名</td>
+          <td class="mlabel">担当工程</td>
+          <td>アーキテクチャ設計 / フロントエンド実装 / ビルド最適化 / テスト</td>
+        </tr>
+        <tr>
+          <td class="mlabel">使用技術</td>
+          <td colspan="3">React 18 · TypeScript · Zustand · Webpack 5 · react-financial-charts · i18next · Playwright</td>
+        </tr>
+        <tr>
+          <td class="mlabel">担当業務<br>・成果</td>
+          <td colspan="3">
+            <ul>
+              <li>Zustandによるモジュール別状態管理（home / markets / stock / currency / news-feed）を設計し、非同期Actionsでリアクティブなデータフローを実現</li>
+              <li>react-financial-chartsを用いたマルチ時間軸Kラインチャートを実装し、株式ヒストリカルデータを可視化</li>
+              <li>ライブ為替レートAPIと連携したリアルタイム多通貨換算ツールを開発</li>
+              <li>@segment/isomorphic-bridgesによるNative Bridge通信レイヤーを構築し、iOS/Android宿主アプリとの双方向連携を実現</li>
+              <li>Webpack 5の環境別ビルド設定（dev/prod分離）をカスタム実装し、Bundle Analyzerでバンドルサイズを最適化。Cold Start FRE（初回起動体験）も改善</li>
+              <li>Playwright E2E + ESLint/Prettierのコード品質基盤を整備し、チーム全体の品質統一を推進</li>
+            </ul>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══ EDUCATION ══ -->
+  <div class="section">
+    <div class="section-title">■ 学歴</div>
+    <table style="width:100%;border-collapse:collapse;font-size:10pt">
+      <tr>
+        <td style="border:1px solid #aaa;background:#eef2f7;font-weight:bold;width:110px;text-align:center;padding:5px">卒業年月</td>
+        <td style="border:1px solid #aaa;background:#eef2f7;font-weight:bold;width:200px;text-align:center;padding:5px">学校名</td>
+        <td style="border:1px solid #aaa;background:#eef2f7;font-weight:bold;text-align:center;padding:5px">学部・学科・専攻</td>
+      </tr>
+      <tr>
+        <td style="border:1px solid #aaa;padding:5px 8px;text-align:center">20XX年XX月</td>
+        <td style="border:1px solid #aaa;padding:5px 8px">○○大学</td>
+        <td style="border:1px solid #aaa;padding:5px 8px">○○学部　コンピューターサイエンス・ソフトウェア工学専攻　卒業</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- ══ CERTIFICATIONS ══ -->
+  <div class="section">
+    <div class="section-title">■ 保有資格・認定</div>
+    <table style="width:100%;border-collapse:collapse;font-size:10pt">
+      <tr>
+        <td style="border:1px solid #aaa;background:#eef2f7;font-weight:bold;width:110px;text-align:center;padding:5px">取得年月</td>
+        <td style="border:1px solid #aaa;background:#eef2f7;font-weight:bold;text-align:center;padding:5px">資格・認定名</td>
+      </tr>
+      <tr>
+        <td style="border:1px solid #aaa;padding:5px 8px;text-align:center">20XX年XX月</td>
+        <td style="border:1px solid #aaa;padding:5px 8px">（お持ちの資格があれば記入 例：基本情報技術者・TOEIC XXX点 等）</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- ══ SELF PR ══ -->
+  <div class="section">
+    <div class="section-title">■ 自己PR</div>
+    <div class="pr-box">
+      <strong>【フルスタック開発力とAI活用の実績】</strong><br>
+      フロントエンド（React / Vue 3）からバックエンド（NestJS / Prisma）まで、プロジェクト全体を一人で設計・実装できる全方位的な技術力を持ちます。
+      特にAzure OpenAI / OpenAI APIを活用したAIコンテンツ生成パイプラインの設計・本番投入の経験は、
+      AIシステム開発が加速する現在において即戦力として貢献できる強みです。<br><br>
+      <strong>【グローバルプロダクトの品質へのこだわり】</strong><br>
+      70以上の市場・言語に対応したMicrosoftエコシステム製品を通じて、国際化（i18n）・セキュリティ・アクセシビリティを考慮した高品質なプロダクト開発の経験を積みました。
+      Playwrightによるエンドツーエンドテスト基盤の整備やCSRF・XSS対策など、品質と安全性に対して高い意識を持って開発に取り組んでいます。<br><br>
+      <strong>【チームへの貢献と成長意欲】</strong><br>
+      マイクロサービスのアーキテクチャ設計からコードレビュー・ドキュメント整備まで、チーム全体の生産性向上に貢献してきました。
+      日本語学習中であり、日本のチームに速やかに馴染み、長期的に貢献したいと考えております。
+    </div>
+  </div>
+
+  <div style="text-align:right;font-size:9pt;color:#666;margin-top:20px;border-top:1px solid #ccc;padding-top:8px">
+    以上
+  </div>
+
+</div><!-- /page 2 -->
+
+<div style="text-align:center;padding:16px;color:#888;font-size:11px;font-family:sans-serif">
+  Ctrl+P（Mac: Cmd+P）→「PDFとして保存」を選択 ／ 推奨設定：A4・余白なし・背景グラフィック ON
+</div>
+
+</body>
+</html>
