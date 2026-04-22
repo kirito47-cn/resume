@@ -637,32 +637,31 @@
       <!-- PJ4 -->
       <div class="proj-block">
         <div class="proj-head">
-          <div class="proj-name">【PJ④】MSN Weather V3 — 気象情報ミニアプリ（Vue 2 → Vue 3 フレームワーク移行）</div>
+          <div class="proj-name">【PJ④】MSN Weather V3 — 気象情報ミニアプリ（Vue 2→3移行 · Native Bridgeデスクトップ適応）</div>
           <div class="proj-period">20XX.XX〜20XX.XX</div>
         </div>
         <table class="proj-meta">
           <tr>
             <td class="mlbl">概要</td>
-            <td>SapphireスーパーアプリへのMSN天気ミニアプリ。リアルタイム天気・10日間予報・台風追跡・AQI情報を提供し70以上の市場・言語をサポート。既存Vue 2プロジェクトをVue 3エコシステムへ全面移行するリードを担当。</td>
+            <td>SapphireスーパーアプリへのMSN天気ミニアプリ。リアルタイム天気・10日間予報・台風追跡・AQI情報を提供し70以上の市場・言語をサポート。Vue 2→3全面移行と、Native Bridge通信層のデスクトップPC向け適応改修をリード。</td>
           </tr>
           <tr>
             <td class="mlbl">規模・役割</td>
-            <td>エンジニアX名 ／ フレームワーク移行設計・実装・E2Eテスト担当</td>
+            <td>エンジニアX名 ／ フレームワーク移行・Bridge適応設計・実装・E2Eテスト担当</td>
           </tr>
           <tr>
             <td class="mlbl">使用技術</td>
-            <td class="tech-row">Vue 2→3 · TypeScript · Vue CLI→Vite · Vue Router v3→v4 · Vue I18n v8→v9 · Composition API · Playwright · DOMPurify · 独自気象チャートライブラリ</td>
+            <td class="tech-row">Vue 2→3 · TypeScript · Vue CLI→Vite · Vue Router v3→v4 · Vue I18n v8→v9 · Composition API · @segment/isomorphic-bridges · Playwright · DOMPurify</td>
           </tr>
           <tr>
             <td class="mlbl">担当業務<br>・成果</td>
             <td>
               <ul>
-                <li><strong>フレームワーク全面移行：</strong>Vue 2 Options APIコンポーネントをVue 3 Composition API（setup / ref / reactive / computed / watch / onMounted）へ段階的にリファクタリング。本番稼働を維持しながら漸進的移行戦略を遂行</li>
-                <li><strong>ビルドツール・周辺ライブラリ移行：</strong>Vue CLI（Webpack）からViteへ移行しデュアルビルド構成で後方互換を確保。Vue Router v3→v4（createRouter / createWebHashHistory）、Vue I18n v8→v9（legacy:false / Composition APIモード）へも同時対応</li>
-                <li><strong>状態管理のモダン化：</strong>Vue 2のEventBusパターンをVue 3のprovide/inject + Composablesに刷新。UseCityListInfo / UseDeviceInfo / UseThemeModeなど再利用可能なComposableを設計し、コードの可読性・テスタビリティを向上</li>
-                <li><strong>Vue 3新機能の活用：</strong>Teleportで固定ヘッダー・背景レイヤーのクロスレイヤーレンダリングを実現。v-model:propNameでVue 2の.syncモディファイアを置き換え。emitsオプションの明示的宣言でコンポーネント間通信を型安全に整備</li>
-                <li><strong>カスタムディレクティブ・エントリポイント対応：</strong>全カスタムディレクティブのライフサイクルをVue 3形式（created/beforeUnmount）に移行。main.jsをcreateApp()チェーン呼び出しに改修し、Vue.prototype等のグローバル汚染を排除</li>
-                <li>Falcon API / MSN Weather API / Bing Placesの3系統データ集約レイヤー・OfflineKeysキャッシュ体系を設計。Nowcasting降水予報、台風追跡、気象連動スキン自動切換えなどのコア機能を実装</li>
+                <li><strong>フレームワーク全面移行：</strong>Vue 2 Options APIをVue 3 Composition API（setup / ref / reactive / computed / onMounted）へ漸進的にリファクタリング。本番稼働を維持しながら移行を完遂。Vue CLI→Vite、Vue Router v3→v4、Vue I18n v8→v9も同時対応</li>
+                <li><strong>状態管理・Vue 3新機能：</strong>EventBusをprovide/inject + Composablesに刷新（UseCityListInfo / UseDeviceInfo / UseThemeMode）。Teleport・v-model:propName・emits明示宣言・Vue 3指令ライフサイクルを導入</li>
+                <li><strong>Native Bridge APIの統一封装：</strong>@segment/isomorphic-bridgesをラップしたBridgeUtilsレイヤーを設計。request（キャッシュ付きHTTP）・getDeviceInfo・getLocationInfo・requestPermission・saveData/loadData・subscribe/unSubscribe・navigate・logEvent/logError・getNetworkInfoなど10以上のネイティブAPIを一元管理</li>
+                <li><strong>Bridgeデスクトップ適応改修：</strong>UserAgentによるisBrowser環境検出を実装。非Native環境でBridge.request()をVite Dev Proxy経由で実際のMSN API（api.msn.com / api.msn.cn）にリダイレクト。Bridge.saveData/loadDataをlocalStorageでフォールバック実装し、Native UIはブラウザ代替コンポーネントで補完。PC上のブラウザだけで全機能のローカル開発・デバッグを実現</li>
+                <li>Falcon API / MSN Weather API / Bing Placesの3系統データ集約・OfflineKeysキャッシュ体系を設計。Nowcasting降水予報、台風追跡、気象連動スキン切換などのコア機能を実装</li>
               </ul>
             </td>
           </tr>
@@ -694,8 +693,7 @@
               <ul>
                 <li>Zustandモジュール別状態管理（home / markets / stock / currency / news-feed）を設計し、非同期Actionsでリアクティブなデータフローを実現</li>
                 <li>react-financial-chartsを用いたマルチ時間軸Kラインチャートを実装し、株式ヒストリカルデータを可視化</li>
-                <li>ライブ為替レートAPIと連携したリアルタイム多通貨換算ツールを開発</li>
-                <li>@segment/isomorphic-bridgesによるNative Bridge通信レイヤーを構築し、iOS/Android宿主アプリとの双方向連携を実現</li>
+                <li>BridgeUtils TypeScriptレイヤーを設計し、Bridge.request / getDeviceInfo / getLocationInfo / saveData / logEventなどのNative API呼び出しを一元管理。URLパラメータ解析とデフォルトDeviceInfoコンテキストによりデスクトップ環境でも動作するフォールバック機構を実装。カスタムsnackbarでNative UIを代替しPC上で完全なローカル開発を実現</li>
                 <li>Webpack 5環境別ビルド設定（dev/prod分離）をカスタム実装。Bundle AnalyzerでバンドルサイズとCold Start FRE（初回起動体験）を最適化</li>
               </ul>
             </td>
