@@ -668,10 +668,46 @@
         </table>
       </div>
 
-      <!-- PJ5 -->
+      <!-- PJ5: Bridge -->
       <div class="proj-block">
         <div class="proj-head">
-          <div class="proj-name">【PJ⑤】Sapphire Money — 金融株式トラッキングミニアプリ</div>
+          <div class="proj-name">【PJ⑤】Native Bridge デスクトップ適応レイヤー — ミニアプリ ローカル開発基盤</div>
+          <div class="proj-period">20XX.XX〜20XX.XX</div>
+        </div>
+        <table class="proj-meta">
+          <tr>
+            <td class="mlbl">概要</td>
+            <td>Sapphireミニアプリは全て@segment/isomorphic-bridgesでiOS/Androidホストと通信する構造のため、Native環境外ではBridge APIが全て無効化され、実機なしの開発が不可能だった。この課題を解決するため「環境検知＋多層フォールバック」適応レイヤーを独立設計し、WeatherV3・Moneyの2プロジェクトに横断展開。PCブラウザ上で完全なローカル開発を実現した。</td>
+          </tr>
+          <tr>
+            <td class="mlbl">規模・役割</td>
+            <td>個人設計・複数プロジェクト横断実装 ／ アーキテクチャ設計・実装・展開担当</td>
+          </tr>
+          <tr>
+            <td class="mlbl">使用技術</td>
+            <td class="tech-row">@segment/isomorphic-bridges · TypeScript · Vite Proxy · Webpack DevProxy · localStorage · UserAgent検出</td>
+          </tr>
+          <tr>
+            <td class="mlbl">担当業務<br>・成果</td>
+            <td>
+              <ul>
+                <li><strong>課題の根本原因：</strong>BridgeはJS→Nativeインジェクションでシステム機能（通信・ストレージ・位置情報・ナビゲーション・ログ等）を呼び出す仕組みのため、ホストApp外ではAPI呼び出しがサイレントに失敗し、エラーも出ずにローカル起動不能という状況だった</li>
+                <li><strong>環境検知レイヤー：</strong>UserAgentマッチング（Sapphire / Bing / News）とNODE_ENVの二重判定によりisBrowserを精確に識別。適応コードは開発モードのみ有効で本番バンドルへの混入を防止</li>
+                <li><strong>ネットワークリクエスト適応：</strong>Bridge.request()（ネイティブキャッシュHTTP）をブラウザ環境下でVite / Webpack DevProxyにリダイレクトし、実際のMSN API（api.msn.com / api.msn.cn）を透過プロキシ。リクエストパラメータ・レスポンス構造を完全保持しビジネスコードへの変更ゼロを実現</li>
+                <li><strong>データ永続化適応：</strong>Bridge.saveData / loadDataをlocalStorageでフォールバック実装。カスタムTTL失効ポリシーと名前空間によりネイティブAPIと同等の動作を再現</li>
+                <li><strong>デバイス情報Mock：</strong>デフォルトDeviceInfoコンテキスト（市場・OSバージョン・ステータスバー高さ等）を構築。URLパラメータによる任意フィールドの上書きをサポートし、複数市場・複数プラットフォームのシナリオ模擬を実現</li>
+                <li><strong>Native UI代替：</strong>ブラウザネイティブHTML/CSSによるSnackbar・Toastコンポーネントを実装。Bridge.navigate()のページ遷移ロジックもカバーし、デスクトップ環境での完全なインタラクション体験を提供</li>
+                <li><strong>成果：</strong>Bridge全量API（request / getDeviceInfo / getLocationInfo / requestPermission / saveData / loadData / subscribe / navigate / logEvent / getNetworkInfo など10以上）をカバー。「実機デプロイ数分待ち」から「ブラウザ秒単位リロード」へ開発サイクルを短縮し、チームの反復効率を大幅向上</li>
+              </ul>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- PJ6 -->
+      <div class="proj-block">
+        <div class="proj-head">
+          <div class="proj-name">【PJ⑥】Sapphire Money — 金融株式トラッキングミニアプリ</div>
           <div class="proj-period">20XX.XX〜20XX.XX</div>
         </div>
         <table class="proj-meta">
