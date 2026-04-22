@@ -637,32 +637,32 @@
       <!-- PJ4 -->
       <div class="proj-block">
         <div class="proj-head">
-          <div class="proj-name">【PJ④】MSN Weather V3 — 気象情報ミニアプリ</div>
+          <div class="proj-name">【PJ④】MSN Weather V3 — 気象情報ミニアプリ（Vue 2 → Vue 3 フレームワーク移行）</div>
           <div class="proj-period">20XX.XX〜20XX.XX</div>
         </div>
         <table class="proj-meta">
           <tr>
             <td class="mlbl">概要</td>
-            <td>Sapphireスーパーアプリ内MSN天気ミニアプリ。リアルタイム天気・10日間予報・台風追跡・AQI情報を提供。70以上の市場・言語に対応。</td>
+            <td>SapphireスーパーアプリへのMSN天気ミニアプリ。リアルタイム天気・10日間予報・台風追跡・AQI情報を提供し70以上の市場・言語をサポート。既存Vue 2プロジェクトをVue 3エコシステムへ全面移行するリードを担当。</td>
           </tr>
           <tr>
             <td class="mlbl">規模・役割</td>
-            <td>エンジニアX名 ／ 機能設計・実装・パフォーマンス最適化・E2Eテスト担当</td>
+            <td>エンジニアX名 ／ フレームワーク移行設計・実装・E2Eテスト担当</td>
           </tr>
           <tr>
             <td class="mlbl">使用技術</td>
-            <td class="tech-row">Vue 3 · TypeScript · Vite · Vue I18n · Swiper · Playwright · DOMPurify · 独自気象チャートライブラリ</td>
+            <td class="tech-row">Vue 2→3 · TypeScript · Vue CLI→Vite · Vue Router v3→v4 · Vue I18n v8→v9 · Composition API · Playwright · DOMPurify · 独自気象チャートライブラリ</td>
           </tr>
           <tr>
             <td class="mlbl">担当業務<br>・成果</td>
             <td>
               <ul>
-                <li>Falcon API / MSN Weather API / Bing Placesの3系統データソースを集約する統一データ変換レイヤーとOfflineKeys離線キャッシュ体系を設計</li>
-                <li>分単位降水予報をリアルタイム描画するNowcastingモジュールを開発（自社気象チャートライブラリ統合）</li>
-                <li>台風追跡機能（経路図・詳細ページ・リアルタイムアラート通知）を実装</li>
-                <li>気象状態・現地時刻に連動した背景スキン自動切換えシステムを構築（晴/曇/夜間など複数テーマ）</li>
-                <li>タイムアウト10秒 + 指数バックオフリトライ + ネットワーク状態検知の統一リクエストラッパーを実装し、低速回線環境での可用性を向上</li>
-                <li>isomorphic-dompurifyによるXSS対策実施。Playwright E2Eでコアユーザーパスを自動検証</li>
+                <li><strong>フレームワーク全面移行：</strong>Vue 2 Options APIコンポーネントをVue 3 Composition API（setup / ref / reactive / computed / watch / onMounted）へ段階的にリファクタリング。本番稼働を維持しながら漸進的移行戦略を遂行</li>
+                <li><strong>ビルドツール・周辺ライブラリ移行：</strong>Vue CLI（Webpack）からViteへ移行しデュアルビルド構成で後方互換を確保。Vue Router v3→v4（createRouter / createWebHashHistory）、Vue I18n v8→v9（legacy:false / Composition APIモード）へも同時対応</li>
+                <li><strong>状態管理のモダン化：</strong>Vue 2のEventBusパターンをVue 3のprovide/inject + Composablesに刷新。UseCityListInfo / UseDeviceInfo / UseThemeModeなど再利用可能なComposableを設計し、コードの可読性・テスタビリティを向上</li>
+                <li><strong>Vue 3新機能の活用：</strong>Teleportで固定ヘッダー・背景レイヤーのクロスレイヤーレンダリングを実現。v-model:propNameでVue 2の.syncモディファイアを置き換え。emitsオプションの明示的宣言でコンポーネント間通信を型安全に整備</li>
+                <li><strong>カスタムディレクティブ・エントリポイント対応：</strong>全カスタムディレクティブのライフサイクルをVue 3形式（created/beforeUnmount）に移行。main.jsをcreateApp()チェーン呼び出しに改修し、Vue.prototype等のグローバル汚染を排除</li>
+                <li>Falcon API / MSN Weather API / Bing Placesの3系統データ集約レイヤー・OfflineKeysキャッシュ体系を設計。Nowcasting降水予報、台風追跡、気象連動スキン自動切換えなどのコア機能を実装</li>
               </ul>
             </td>
           </tr>
