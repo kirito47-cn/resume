@@ -302,21 +302,40 @@
         <!-- Project 4: WeatherV3 -->
         <div class="project">
           <div class="project-header">
-            <div class="project-name">MSN Weather V3 — 气象信息 Mini App</div>
-            <div class="project-role">核心开发</div>
+            <div class="project-name">MSN Weather V3 — 气象信息 Mini App（Vue 2→3 迁移 · Bridge 桌面适配）</div>
+            <div class="project-role">核心开发 · 框架迁移</div>
           </div>
-          <div class="project-tech">Vue 3 · TypeScript · Vite · Vue I18n · Swiper · Playwright · DOMPurify · 自研气象图表库</div>
+          <div class="project-tech">Vue 2→3 · TypeScript · Vue CLI→Vite · Vue Router v3→v4 · Vue I18n v8→v9 · Composition API · @segment/isomorphic-bridges · Playwright · DOMPurify</div>
           <div class="project-desc">
-            MSN Weather 移动端天气应用，嵌入 Sapphire 超级应用生态，
-            提供实时天气、10天预报、飓风追踪、AQI 空气质量等功能，支持 70+ 市场本地化。
+            MSN Weather 移动端天气应用，嵌入 Sapphire 超级应用生态，提供实时天气、10天预报、飓风追踪、AQI 空气质量等功能，支持 70+ 市场本地化。
+            主导 Vue 2→3 全链路迁移，并对 Native Bridge 通信层进行桌面端适配改造，实现本地 PC 浏览器开发调试能力。
           </div>
           <ul class="highlights">
-            <li>聚合 <strong>Falcon API / MSN Weather API / Bing Places</strong> 三路数据源，实现统一数据转换层与缓存策略（OfflineKeys 离线键体系）</li>
-            <li>开发 <strong>Nowcasting 实时降水预报模块</strong>，集成自研 @msnews-weather/weather-shared-nowcast-chart 图表库，展示分钟级降雨动态</li>
-            <li>构建 <strong>飓风追踪功能</strong>，包含台风路径图、详情页和实时告警推送</li>
-            <li>实现 <strong>天气背景自适应系统</strong>（晴/阴/夜间多套皮肤），结合本地时间与天气状态动态切换 UI</li>
-            <li>封装 <strong>统一请求层</strong>（超时 10s + 指数退避重试 + 网络感知），显著提升弱网环境下的可用性</li>
-            <li>集成 <strong>Playwright E2E 自动化测试</strong>，覆盖核心用户路径；通过 isomorphic-dompurify 防御 XSS 注入</li>
+            <li><strong>框架全栈迁移</strong>：将 Vue 2 Options API 逐步重构为 Composition API（setup / ref / reactive / computed / onMounted），渐进式策略保持生产环境持续可用；同步完成 Vue CLI→Vite、Vue Router v3→v4、Vue I18n v8→v9 全生态升级</li>
+            <li><strong>状态管理现代化</strong>：以 provide/inject + Composable 替代 EventBus，封装 UseCityListInfo / UseDeviceInfo / UseThemeMode；引入 Teleport、v-model:propName、显式 emits、Vue 3 指令生命周期（created/beforeUnmount）等新特性</li>
+            <li><strong>Native Bridge 接口封装</strong>：基于 @segment/isomorphic-bridges 封装统一 BridgeUtils 工具层，覆盖 request（缓存 HTTP）、getDeviceInfo、getLocationInfo、requestPermission、saveData/loadData、subscribe/unSubscribe、navigate、logEvent/logError、getNetworkInfo 等 10+ 原生能力</li>
+            <li><strong>Bridge 桌面端适配改造</strong>：基于 UserAgent 实现 isBrowser 环境检测，将 Bridge.request() 重定向至 Vite Dev Proxy 代理真实 MSN API；以 localStorage 实现 saveData/loadData 浏览器兜底；封装浏览器 Snackbar 替代 Native UI，使整套应用在本地 PC 浏览器完整可用</li>
+            <li>聚合 <strong>Falcon API / MSN Weather API / Bing Places</strong> 三路数据源，构建统一数据转换层与 OfflineKeys 离线缓存体系；开发 Nowcasting 实时降水、飓风追踪、天气背景自适应等核心功能模块</li>
+          </ul>
+        </div>
+
+        <!-- Project: Bridge Desktop Adapter -->
+        <div class="project">
+          <div class="project-header">
+            <div class="project-name">Native Bridge 桌面适配层 — Mini App 本地开发基础设施</div>
+            <div class="project-role">独立设计 · 跨项目落地</div>
+          </div>
+          <div class="project-tech">@segment/isomorphic-bridges · TypeScript · Vite Proxy · Webpack DevProxy · localStorage · UserAgent 检测</div>
+          <div class="project-desc">
+            Sapphire 超级应用内所有 Mini App 依赖 @segment/isomorphic-bridges 与 iOS/Android 宿主通信，原生环境外 Bridge 接口全部失效，导致开发者必须依赖真机调试，迭代效率极低。独立设计并在 WeatherV3、Money 两个项目落地一套「环境感知 + 多层降级」适配方案，使完整业务流程可在 PC 浏览器本地运行，<strong>彻底消除开发阶段对真机的依赖</strong>。
+          </div>
+          <ul class="highlights">
+            <li><strong>环境检测层</strong>：通过 UserAgent 匹配（Sapphire / Bing / News）+ NODE_ENV 双重判断实现精准的 isBrowser 识别，适配代码仅在开发模式生效、不污染生产包</li>
+            <li><strong>网络请求适配</strong>：将 Bridge.request()（原生缓存 HTTP）在浏览器环境下重定向至 Vite / Webpack DevProxy，透明代理真实 MSN API（api.msn.com / api.msn.cn），业务代码零感知</li>
+            <li><strong>数据持久化适配</strong>：以 localStorage 实现 Bridge.saveData / loadData 的浏览器兜底，自定义 TTL 过期策略与键名命名空间，行为与原生接口对齐</li>
+            <li><strong>设备信息 Mock</strong>：构建默认 DeviceInfo 上下文（市场、OS 版本、状态栏高度等），支持通过 URL 参数注入覆盖任意字段，满足不同市场、不同平台的场景模拟需求</li>
+            <li><strong>Native UI 兜底</strong>：封装浏览器原生 HTML/CSS 实现的 Snackbar / Toast 替代组件，覆盖 Bridge.navigate() 的页面跳转逻辑，使交互反馈在桌面环境完整可用</li>
+            <li><strong>工程效果</strong>：覆盖 10+ Bridge API，开发调试从「部署到真机等待数分钟」缩短至「浏览器秒级刷新」，显著提升团队迭代效率</li>
           </ul>
         </div>
 
@@ -326,7 +345,7 @@
             <div class="project-name">Sapphire Money — 金融股票追踪 Mini App</div>
             <div class="project-role">核心开发</div>
           </div>
-          <div class="project-tech">React 18 · TypeScript · Zustand · Webpack 5 · react-financial-charts · i18next · Playwright</div>
+          <div class="project-tech">React 18 · TypeScript · Zustand · Webpack 5 · @segment/isomorphic-bridges · react-financial-charts · i18next · Playwright</div>
           <div class="project-desc">
             嵌入 Sapphire 超级应用的金融信息 Mini App，提供股票自选股管理、K线图、
             行情资讯和汇率换算，覆盖 iOS/Android 双平台。
@@ -334,8 +353,7 @@
           <ul class="highlights">
             <li>构建 <strong>Zustand 分模块状态管理体系</strong>（home / markets / stock / currency / news-feed 五个 Store），配合异步 Actions 实现响应式数据流</li>
             <li>集成 <strong>react-financial-charts</strong> 渲染多周期 K 线图表，实现股票历史行情可视化</li>
-            <li>开发 <strong>汇率实时换算器</strong>，对接实时汇率 API，支持多币种互转</li>
-            <li>封装 <strong>Native Bridge 通信层</strong>（@segment/isomorphic-bridges），实现 Web 与 iOS/Android 宿主应用的双向通信</li>
+            <li>封装 <strong>BridgeUtils TypeScript 工具层</strong>，统一管理 Bridge.request / getDeviceInfo / getLocationInfo / saveData / logEvent 等原生通信接口；通过 URL 参数解析与默认 DeviceInfo 上下文实现桌面端无缝降级，自定义 Snackbar 替代 Native UI，PC 浏览器本地开发完整可用</li>
             <li>自定义 <strong>Webpack 5 分环境构建配置</strong>（dev/prod 拆分），集成 Bundle Analyzer 优化包体积，并配置 Cold Start FRE 首次加载体验</li>
             <li>搭建 <strong>Playwright E2E 测试 + ESLint/Prettier 代码规范</strong> 工程化体系，确保团队代码质量一致性</li>
           </ul>
